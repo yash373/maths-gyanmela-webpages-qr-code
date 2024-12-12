@@ -21,7 +21,7 @@ const GQuestion = ({ question, answer, imageUrl }: GQuestionProps) => {
 
   return (
     <div className='flex h-screen items-center justify-center space-y-4 flex-col'>
-      <img src={imageUrl} alt="question related" className='w-64 h-64 object-cover' />
+      <img src={imageUrl} alt="question related" className='h-1/2 object-cover' />
       <div className='text-2xl capitalize font-semibold'>
         {question}
       </div>
