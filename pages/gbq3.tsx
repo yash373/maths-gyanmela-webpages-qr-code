@@ -3,7 +3,7 @@ import GQuestion from '@/components/graphic-based-question/GQuestion'
 
 const GBQ3 = () => {
   return (
-    <GQuestion imageUrl='https://cdn1.byjus.com/wp-content/uploads/2022/08/pythagoras-theorem-question-7.png' question='Find OB' answer='26 km' />
+    <GQuestion imageUrl='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT-vXYfJDR7uzv8D34w6KS0Gg6OG1wgmOqbPg&s' question='Identify this man from the image' answer='narendra modi' />
   )
 }
 
