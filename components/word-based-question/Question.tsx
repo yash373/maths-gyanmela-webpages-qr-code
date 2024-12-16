@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 interface QuestionProps {
     question: string,
@@ -7,10 +7,20 @@ interface QuestionProps {
     tries: number
 }
 
+const code: Number = 399
+
 const Question = ({ question, options, answer, tries: numberOfTries }: QuestionProps) => {
     const [userAnswer, setUserAnswer] = useState('');
     const [correct, setCorrect] = useState(false);
     const [tries, setTries] = useState(numberOfTries);
+    const [allowed, setAllowed] = useState(false)
+
+    useEffect(() => {
+        const entered = prompt('Enter the code');
+        if (entered === code.toString()) {
+            setAllowed(true)
+        }
+    },[])
 
     const handleOptionClick = (selectedAnswer: string) => {
         if (tries > 0 && !correct) {
@@ -26,27 +36,29 @@ const Question = ({ question, options, answer, tries: numberOfTries }: QuestionP
     };
 
     return (
-        <div className='flex my-5 items-center justify-center'>
-            <div className='flex flex-col space-y-10 w-full max-w-md'>
-                <div className='text-2xl text-center capitalize font-semibold'>{question}</div>
-                {/* <img className='h-1/2 min-h-50 w-[80%] mx-auto' src={imageUrl} alt={question} /> */}
-                <div className='flex flex-col space-y-4 w-full mx-auto'>
-                    {options.map((option, index) => (
-                        <Option
-                            key={index}
-                            answer={option}
-                            correct={option === answer}
-                            clickFunction={() => handleOptionClick(option)}
-                        />
-                    ))}
+        <>
+            {allowed && <div className='flex my-5 items-center justify-center'>
+                <div className='flex flex-col space-y-10 w-full max-w-md'>
+                    <div className='text-2xl text-center capitalize font-semibold'>{question}</div>
+                    {/* <img className='h-1/2 min-h-50 w-[80%] mx-auto' src={imageUrl} alt={question} /> */}
+                    <div className='flex flex-col space-y-4 w-full mx-auto'>
+                        {options.map((option, index) => (
+                            <Option
+                                key={index}
+                                answer={option}
+                                correct={option === answer}
+                                clickFunction={() => handleOptionClick(option)}
+                            />
+                        ))}
+                    </div>
+                    <div className='text-center'>
+                        Tries left: {tries}
+                    </div>
+                    {!correct && tries === 0 && <div className='text-center text-red-600'>Better luck next time...</div>}
+                    {correct && <div className='text-center text-green-600'>You got lucky this time...</div>}
                 </div>
-                <div className='text-center'>
-                    Tries left: {tries}
-                </div>
-                {!correct && tries === 0 && <div className='text-center text-red-600'>Better luck next time...</div>}
-                {correct && <div className='text-center text-green-600'>You got lucky this time...</div>}
-            </div>
-        </div>
+            </div>}
+        </>
     );
 };
 
