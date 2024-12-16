@@ -7,10 +7,9 @@ interface QuestionProps {
     tries: number
 }
 
-const code: Number = 399
+const code = 399
 
 const Question = ({ question, options, answer, tries: numberOfTries }: QuestionProps) => {
-    const [userAnswer, setUserAnswer] = useState('');
     const [correct, setCorrect] = useState(false);
     const [tries, setTries] = useState(numberOfTries);
     const [allowed, setAllowed] = useState(false)
@@ -24,7 +23,6 @@ const Question = ({ question, options, answer, tries: numberOfTries }: QuestionP
 
     const handleOptionClick = (selectedAnswer: string) => {
         if (tries > 0 && !correct) {
-            setUserAnswer(selectedAnswer);
             if (selectedAnswer === answer) {
                 setCorrect(true);
                 alert('Correct answer!');
@@ -46,7 +44,6 @@ const Question = ({ question, options, answer, tries: numberOfTries }: QuestionP
                             <Option
                                 key={index}
                                 answer={option}
-                                correct={option === answer}
                                 clickFunction={() => handleOptionClick(option)}
                             />
                         ))}
@@ -62,7 +59,7 @@ const Question = ({ question, options, answer, tries: numberOfTries }: QuestionP
     );
 };
 
-export const Option = ({ answer, correct, clickFunction }: { answer: string, correct: boolean, clickFunction: () => void }) => {
+export const Option = ({ answer, clickFunction }: { answer: string, clickFunction: () => void }) => {
     return (
         <button onClick={clickFunction} className='py-2 hover:cursor-pointer bg-blue-500 hover:bg-blue-700 w-full text-white font-bold px-4 rounded'>
             {answer}
